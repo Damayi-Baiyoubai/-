@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.fa_blog_study.dao.ArticleMapper">
+    <insert id="insert" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO ms_article
+        (comment_counts, create_date, summary, title, view_counts, weight, author_id, body_id, category_id)
+        VALUES (#{commentCounts}, #{createDate}, #{summary}, #{title}, #{viewCounts}, #{weight},
+                #{authorId}, #{bodyId}, #{categoryId})
+    </insert>
+    <select id="selectPage" resultType="com.example.fa_blog_study.dao.pojo.Article">
+        SELECT *
+        <if test="pageParams.year != null and pageParams.month != null">
+            ,from_unixtime(create_date/1000,"%Y") AS year,MONTH(from_unixtime(create_date/1000)) AS month
+        </if>
+
+        FROM ms_article
+        <where>
+            <if test="pageParams.categoryId != null">
+                AND category_id=#{pageParams.categoryId}
+            </if>
+            <if test="articleIds.size() > 0">
+                AND id IN
+                <foreach collection="articleIds" item="articleId" open="(" close=")" separator=",">
+                    #{articleId}
+                </foreach>
+            </if>
+        </where>
+        <if test="pageParams.year != null and pageParams.month != null">
+            HAVING year=#{pageParams.year} AND month=#{pageParams.month}
+        </if>
+        ORDER BY ${order1} DESC,${order2} DESC LIMIT #{offset},#{rows}
+    </select>
+</mapper>

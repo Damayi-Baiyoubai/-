@@ -1,0 +1,22 @@
+spring:
+  datasource:
+    username: root
+    password: ace45de
+    url: jdbc:mysql://localhost:3306/fa_blog?useUnicode=true&characterEncoding=UTF-8&serverTimeZone=UTC
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  mvc:
+    hiddenmethod:
+      filter:
+        enabled: true
+  redis:
+    host: localhost
+    port: 6379
+mybatis:
+  config-location: classpath:mybatis/mabatis_config.xml
+  mapper-locations: classpath:mybatis/mapper/*.xml
+logging:
+  level:
+    com.example.fa_blog_study.dao : debug
+server:
+  port: 8888
+

@@ -1,0 +1,19 @@
+package com.example.fa_blog_study.controller;
+
+import com.example.fa_blog_study.service.SysUserService;
+import com.example.fa_blog_study.vo.Result;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+
+@RestController
+@RequestMapping("/users")
+public class UsersController {
+
+    @Autowired
+    SysUserService sysUserService;
+
+    @GetMapping("/currentUser")
+    public Result currentUser(@RequestHeader("Authorization") String token){
+        return sysUserService.findUserByToken(token);
+    }
+}

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.fa_blog_study.dao.SysUserMapper">
+    <insert id="save" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO ms_sys_user
+            (account,admin,avatar,create_date,deleted,email,
+            last_login,mobile_phone_number,nickname,password,salt,status)
+            VALUES (#{account},#{admin},#{avatar},#{createDate},#{deleted},#{email},
+            #{lastLogin},#{mobilePhoneNumber},#{nickname},#{password},#{salt},#{status})
+    </insert>
+</mapper>
